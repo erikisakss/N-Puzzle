@@ -1,3 +1,7 @@
+Namn: Erik Isaksson
+ID: ein22002
+
+
 The [N-Puzzle](https://en.wikipedia.org/wiki/15_puzzle) is a sliding puzzle that consists of a frame of numbered square tiles in random order with one tile missing. The object of the puzzle is to place the tiles in order by making sliding moves that use the empty space.
 
 ### Your task
