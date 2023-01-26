@@ -3,13 +3,13 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.4.33205.214
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "N-Puzzle", "N-PuzzleREAD\N-Puzzle.csproj", "{4C4D69BB-09C2-4A25-8148-9112A2C97CB2}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "N-Puzzle", "N-Puzzle\N-Puzzle.csproj", "{4C4D69BB-09C2-4A25-8148-9112A2C97CB2}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{BC24EEA8-8625-40DA-8B1E-ACDD8A464EA2}"
 	ProjectSection(SolutionItems) = preProject
-		N-PuzzleREAD\Board.cs = N-PuzzleREAD\Board.cs
-		N-PuzzleREAD\GameLogic.cs = N-PuzzleREAD\GameLogic.cs
-		N-PuzzleREAD\Tiles.cs = N-PuzzleREAD\Tiles.cs
+		N-Puzzle\Board.cs = N-Puzzle\Board.cs
+		N-Puzzle\GameLogic.cs = N-Puzzle\GameLogic.cs
+		N-Puzzle\Tiles.cs = N-Puzzle\Tiles.cs
 	EndProjectSection
 EndProject
 Global
