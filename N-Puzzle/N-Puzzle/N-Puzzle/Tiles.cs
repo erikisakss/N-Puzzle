@@ -10,22 +10,49 @@ namespace N_Puzzle
     
     public class Tile
     {
-        int Value;
+        private int Value;
+        private bool IsEmpty = false;
+        private ConsoleColor TileColor;
 
-        
-        public Tile(int value) {
+
+        public Tile(int value, ConsoleColor color) { 
 
             Value = value;
-        
+            if (Value == 0)
+            {
+                TileColor = ConsoleColor.Black;
+                IsEmpty = true;
+            }
+            else
+            {
+                TileColor = color;
+            }
+            
         }
         
 
         public void PrintValue()
         {
-            
-            //Color red = new Color();
+            //Print rectangle shapes with the color of TileColor and the value of Value
 
-            Console.Write(Value + " ");
+
+            //Print squares using *'s with the color of TileColor and the value of Value inside
+            Console.ForegroundColor = TileColor;
+
+
+
+
+
+
+
+
+
+            
+
+
+
+             Console.Write(String.Format("{0}\t", Value));
+            
         }
         
 
