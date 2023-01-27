@@ -74,22 +74,64 @@ namespace N_Puzzle
 
             var rng = new Random();
             //Randomize the tile 2d array
-            
+
+
+
+            do
+            {
+
+
+                for (int i = 0; i < tiles.GetLength(0); i++)
+                {
+                    for (int j = 0; j < tiles.GetLength(1); j++)
+                    {
+                        int randomRow = rng.Next(0, tiles.GetLength(0));
+                        int randomColumn = rng.Next(0, tiles.GetLength(1));
+                        Tile temp = tiles[i, j];
+                        tiles[i, j] = tiles[randomRow, randomColumn];
+                        tiles[randomRow, randomColumn] = temp;
+                    }
+                }
+            } while (IsSolvable(tiles) == false);
+            //Takes in the Tile array and shuffles it into a solvable shuffle
+
+
+
+        }
+
+        private int InversionCounter(Tile[,] tiles)
+        {
+            int InversionCount = 0;
+
             for (int i = 0; i < tiles.GetLength(0); i++)
             {
-                for (int j = 0; j < tiles.GetLength(1); j++)
+                for (int j = 0; j < tiles.GetLength(1)-1; j++)
                 {
-                    int randomRow = rng.Next(0, tiles.GetLength(0));
-                    int randomColumn = rng.Next(0, tiles.GetLength(1));
-                    Tile temp = tiles[i, j];
-                    tiles[i, j] = tiles[randomRow, randomColumn];
-                    tiles[randomRow, randomColumn] = temp;
+                    if (tiles[i, j].GetValue() > 0 && tiles[i, j].GetValue() > tiles[i, j + 1].GetValue())
+                    {
+                        InversionCount++;
+                    }
                 }
             }
-        
-       
 
 
+
+
+
+            return InversionCount;
+        }
+
+        private bool IsSolvable(Tile[,] tiles)
+        {
+            int InversionCount = InversionCounter(tiles);
+            if (InversionCount % 2 == 0)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
         }
 
         public void SwapElement(string arrowKey)

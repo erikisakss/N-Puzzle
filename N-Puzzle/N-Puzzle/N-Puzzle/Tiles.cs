@@ -29,7 +29,13 @@ namespace N_Puzzle
             }
             
         }
-        
+
+
+        public int GetValue()
+        {
+            return Value;
+        }
+
 
         public void PrintValue()
         {
@@ -47,9 +53,7 @@ namespace N_Puzzle
 
 
 
-            
-
-
+         
 
              Console.Write(String.Format("{0}\t", Value));
             
