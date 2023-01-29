@@ -42,9 +42,9 @@ namespace N_Puzzle
             PrintBoard(tiles);
 
         }
+        //Method that prints the board
 
-
-        public void PrintBoard(Tile[,] tiles)
+        private void PrintBoard(Tile[,] tiles)
         {
             //Prints the board
             for (int i = 0; i < tiles.GetLength(0); i++)
