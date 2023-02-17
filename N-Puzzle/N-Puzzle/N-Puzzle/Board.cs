@@ -12,7 +12,7 @@ namespace N_Puzzle
     public class Board
     {
         //Fields containing the size of the board and the value of the tiles, and the color of the tiles, and the color variations
-        int  ValueAdder, i, j, MoveCount;
+        int ValueAdder, i, j, MoveCount;
         private ConsoleColor AddColor;
         private int[] ColorVariations = { 14, 15, 12, 13, 10, 11 };
         private bool Shuffled = false, Solved = false, Moved = false;
@@ -21,7 +21,7 @@ namespace N_Puzzle
         public Board(int size)
         {
             Random random = new Random();
-           
+
             tiles = new Tile[size, size];
             SolvedState = new Tile[size, size];
             for (i = 0; i < size; i++)
@@ -42,39 +42,32 @@ namespace N_Puzzle
             //Calling the Shuffler function to change the order of the tiles
             Shuffler(tiles);
             //Calling the PrintBoard function to print the board
-            PrintBoard(tiles);
+            PrintBoard();
 
         }
 
-        public Tile[,] GetSolvedState()
-        {
-            return SolvedState;
-        }
-        public Tile[,] GetTiles()
-        {
-            return tiles;
-        }
+
         //Method that prints the board
 
-        private void PrintBoard(Tile[,] tiles)
+        private void PrintBoard()
         {
             //Prints the board
-              for (int i = 0; i < tiles.GetLength(0); i++)
-              {
-                  for (int j = 0; j < tiles.GetLength(1); j++)
-                  {
-                      tiles[i, j].PrintValue();
-                  }
-                  Console.WriteLine("\n");
-                  
-                  Console.WriteLine("\n");
+            for (int i = 0; i < tiles.GetLength(0); i++)
+            {
+                for (int j = 0; j < tiles.GetLength(1); j++)
+                {
+                    tiles[i, j].PrintValue();
+                }
+                Console.WriteLine("\n");
 
-              }
+                Console.WriteLine("\n");
 
-              Console.ForegroundColor = ConsoleColor.White; 
+            }
 
-            
-            
+            Console.ForegroundColor = ConsoleColor.White;
+
+
+
         }
 
 
@@ -103,28 +96,28 @@ namespace N_Puzzle
             int count = 0;
             while (count < 1000)
             {
-                int direction = random.Next(1, 5);
+                ArrowDirection direction = (ArrowDirection)random.Next(1, 4);
                 int newRow = emptyRow;
                 int newCol = emptyCol;
                 switch (direction)
                 {
-                    case 1:
+                    case ArrowDirection.Up:
                         newRow = emptyRow - 1;
                         break;
-                    case 2:
+                    case ArrowDirection.Down:
                         newRow = emptyRow + 1;
                         break;
-                    case 3:
+                    case ArrowDirection.Left:
                         newCol = emptyCol - 1;
                         break;
-                    case 4:
+                    case ArrowDirection.Right:
                         newCol = emptyCol + 1;
                         break;
                 }
 
                 if (newRow >= 0 && newRow < size && newCol >= 0 && newCol < size && (newRow != emptyRow || newCol != emptyCol))
                 {
-                    SwapElement(newRow * size + newCol + 1);
+                    SwapElement((ArrowDirection)direction);
                     emptyRow = newRow;
                     emptyCol = newCol;
                     count++;
@@ -140,164 +133,124 @@ namespace N_Puzzle
 
         //Method that swaps the tiles in the 2d array
 
-        public void SwapElement(int arrowKey)
+        public void SwapElement(ArrowDirection arrowDirection)
         {
-            int ArrowKey = arrowKey;
+         
             int i = 0, j = 0;
-            bool Moved = false;
+            bool EmptyFound = false;
 
 
-
-            switch (ArrowKey)
+            for (i = 0; i < tiles.GetLength(0); i++)
             {
-                case 1:
-                    for (i = 0; i < tiles.GetLength(0); i++)
+                for (j = 0; j < tiles.GetLength(1); j++)
+                {
+                    if (tiles[i, j].GetEmpty() == true)
                     {
-                        for (j = 0; j < tiles.GetLength(1); j++)
-                        {
-                            if (tiles[i, j].GetEmpty() == true)
-                            {
-                               // Console.WriteLine("i: " + i + " j: " + j);
-                                if (i == 0)
-                                {
-                                    
-                                    break;
-                                }
-                                else
-                                {
-                                    
-                                    Tile temp = tiles[i, j];
-                                    tiles[i, j] = tiles[i - 1, j];
-                                    tiles[i - 1, j] = temp;
-                                    break;
-                                }
-                            }
-                        }
+                        EmptyFound = true;
+                        
+
+                        break;
                     }
-                    
-
-
+                }
+                if (EmptyFound)
+                {
                     break;
+                }
+                
+            }
 
-                case 2:
-                    
-                    for (i = 0; i < tiles.GetLength(0); i++)
+            switch (arrowDirection)
+            {
+                case ArrowDirection.Up:
+
+                    if (i == 0)
                     {
-                        for (j = 0; j < tiles.GetLength(1); j++)
-                        {
-                            if (tiles[i, j].GetEmpty() == true)
-                            {
-                                
-                                if (i != tiles.GetLength(0)-1)
-                                {
-                                    //Print the value of i and j
-                                   // Console.WriteLine("i: " + i + " j: " + j);
-                                    Tile temp = tiles[i, j];
-                                    tiles[i, j] = tiles[i +1, j];
-                                    tiles[i +1, j] = temp;
-                                    Moved = true;
-                                    break;
-                                    
-                                }
-                                else
-                                {
-                                    
-                                    break ;
-                                }
-                            }
-                        }
-                        if (Moved)
-                        {
-                            break;
-                        }
+                        break;
+                    }
+                    else
+                    {
+                        Tile temp = tiles[i, j];
+                        tiles[i, j] = tiles[i - 1, j];
+                        tiles[i - 1, j] = temp;
+
+
                     }
 
                     break;
 
-                case 3:
+                case ArrowDirection.Down:
 
-                    for (i = 0; i < tiles.GetLength(0); i++)
+                    if (i == tiles.GetLength(0) - 1)
                     {
-                        for (j = 0; j < tiles.GetLength(1); j++)
-                        {
-                            if (tiles[i, j].GetEmpty() == true)
-                            {
-                                if (j == 0)
-                                {
-                                    
-                                    break;
-                                }
-                                else
-                                {
-                                    Tile temp = tiles[i, j];
-                                    tiles[i, j] = tiles[i, j - 1];
-                                    tiles[i, j - 1] = temp;
-                                    break;
-                                }
-                            }
-                        }
+
+                        break;
                     }
 
-                    break;
-
-                case 4:
-
-                    for (i = 0; i < tiles.GetLength(0); i++)
+                    else
                     {
-                        for (j = 0; j < tiles.GetLength(1); j++)
-                        {
-                            if (tiles[i, j].GetEmpty() == true)
-                            {
-                                if (j == tiles.GetLength(1) - 1)
-                                {
-                                    
-                                    break;
-                                }
-                                else
-                                {
-                                    Tile temp = tiles[i, j];
-                                    tiles[i, j] = tiles[i, j + 1];
-                                    tiles[i, j + 1] = temp;
-                                    break;
-                                }
-                            }
-                        }
+                        Tile temp = tiles[i, j];
+                        tiles[i, j] = tiles[i + 1, j];
+                        tiles[i + 1, j] = temp;
+                        Moved = true;
+                        break;
+
+
                     }
 
-                    break;
+                case ArrowDirection.Left:
+                    if (j == 0)
+                    {
+                        break;
+                    }
+                    else
+                    {
+                        Tile temp = tiles[i, j];
+                        tiles[i, j] = tiles[i, j - 1];
+                        tiles[i, j - 1] = temp;
+                        Moved = true;
+                        break;
+                    }
 
+                case ArrowDirection.Right:
 
-                    
+                    if (j == tiles.GetLength(1) - 1)
+                    {
+                        break;
+                    }
+                    else
+                    {
+                        Tile temp = tiles[i, j];
+                        tiles[i, j] = tiles[i, j + 1];
+                        tiles[i, j + 1] = temp;
+                        Moved = true;
+                        break;
+                    }
+
                 default:
                     break;
+
             }
-            
+
             if (Shuffled)
             {
                 MoveCount++;
                 Console.Clear();
                 Moved = false;
-                PrintBoard(tiles);
+                PrintBoard();
                 Console.WriteLine("Moves: " + MoveCount);
             }
-            
+
 
 
 
 
         }
+
 
         public int GetMoveCount()
         {
             return MoveCount;
         }
-
-
-
-
-
-
-
 
 
         public bool CheckIfSolved()
@@ -308,7 +261,7 @@ namespace N_Puzzle
         }
 
 
-        
+
 
 
     }

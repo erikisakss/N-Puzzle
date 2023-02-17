@@ -1,10 +1,12 @@
 ﻿using System;
 
+
 namespace N_Puzzle
 {
     public class GameLogic
     {
         Board board;
+       
         bool GameOver = false;
 
         public GameLogic()
@@ -14,8 +16,9 @@ namespace N_Puzzle
             int size = int.Parse(Console.ReadLine());
             Console.Clear();
             board = new Board(size);
+           
 
-            
+
             MoveTile();
         }
 
@@ -28,16 +31,16 @@ namespace N_Puzzle
                 switch (keyRead.Key)
                 {
                     case ConsoleKey.W:
-                        board.SwapElement(1);
+                        board.SwapElement(ArrowDirection.Up);
                         break;
                     case ConsoleKey.S:
-                        board.SwapElement(2);
+                        board.SwapElement(ArrowDirection.Down);
                         break;
                     case ConsoleKey.A:
-                        board.SwapElement(3);
+                        board.SwapElement(ArrowDirection.Left);
                         break;
                     case ConsoleKey.D:
-                        board.SwapElement(4);
+                        board.SwapElement(ArrowDirection.Right);
                         break;
                 }
 
