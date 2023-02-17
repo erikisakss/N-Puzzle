@@ -13,19 +13,4 @@ namespace N_Puzzle
 
     }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 }
